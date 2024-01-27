@@ -1,6 +1,6 @@
 import $ from "jquery";
 import Component from "../Interfaces/gameComponentInterface";
-import SubView from "./SubInterfaces/subViewInterface";
+import SubView from "./SubViews/subViewInterface";
 
 export default class ViewManager extends Component{
     currentSubview:SubView;

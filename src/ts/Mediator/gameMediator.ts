@@ -3,8 +3,8 @@ import Component from "./Interfaces/gameComponentInterface";
 import Mediator from "./Interfaces/gameMediatorInterface";
 import Cookies from "js-cookie";
 import ViewManager from "./ViewManagers/viewManager";
-import SubViewEnterUsername from "./ViewManagers/SubInterfaces/SubViewUsername";
-import SubViewWaitingPlayers from "./ViewManagers/SubInterfaces/subViewWaitingPlayers";
+import SubViewEnterUsername from "./ViewManagers/SubViews/SubViewUsername";
+import SubViewWaitingPlayers from "./ViewManagers/SubViews/subViewWaitingPlayers";
 
 export default class GameMediator implements Mediator{
     gameClient:GameClient;
