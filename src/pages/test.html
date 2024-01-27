@@ -1,56 +1,68 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Reproductor de YouTube dinámico</title>
-  <script src="https://www.youtube.com/iframe_api"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reproductor de YouTube dinámico</title>
+    <script src="https://www.youtube.com/iframe_api"></script>
 </head>
+
 <body>
 
-  <input type="text" id="urlInput" placeholder="Introduce la URL de YouTube">
-  <button onclick="cambiarVideo()">Cambiar Video</button>
+    <input type="text" id="urlInput" placeholder="Introduce la URL de YouTube">
+    <button onclick="cambiarVideo()">Cambiar Video</button>
 
-  <div id="reproductor"></div>
+    <div id="reproductor"></div>
 
-  <script>
-    var player;
+    <script>
+        var player;
 
-    function onYouTubeIframeAPIReady() {
-      player = new YT.Player('reproductor', {
-        height: '315',
-        width: '560',
-        videoId: '',  // Inicialmente sin video
-        playerVars: {
-          'autoplay': 1,
-        },
-        events: {
-          'onReady': onPlayerReady,
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('reproductor', {
+                height: '315',
+                width: '560',
+                videoId: '',  // Inicialmente sin video
+                playerVars: {
+                    'autoplay': 1,
+                    'controls': 0,  // Oculta los controles
+                    'disablekb': 1, // Desactiva el teclado
+                    'fs': 0,        // Oculta el botón de pantalla completa
+                    'modestbranding': 1 // Oculta el logo de YouTube
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange':(event)=>{
+                        if (event.data == YT.PlayerState.PAUSED) {
+                            player.playVideo();
+                        }
+                    }
+                }
+            });
         }
-      });
-    }
 
-    function onPlayerReady(event) {
-      // El reproductor está listo
-    }
+        function onPlayerReady(event) {
+            // El reproductor está listo
+        }
 
-    function cambiarVideo() {
-      var urlInput = document.getElementById('urlInput').value;
-      var videoId = obtenerVideoId(urlInput);
+        function cambiarVideo() {
+            var urlInput = document.getElementById('urlInput').value;
+            var videoId = obtenerVideoId(urlInput);
 
-      if (videoId) {
-        player.loadVideoById(videoId);
-      } else {
-        alert('La URL de YouTube no es válida');
-      }
-    }
+            if (videoId) {
+                player.loadVideoById(videoId);
+            } else {
+                alert('La URL de YouTube no es válida');
+            }
+        }
 
-    function obtenerVideoId(url) {
-      var regExp = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-      var match = url.match(regExp);
-      return (match && match[1]) ? match[1] : null;
-    }
-  </script>
+        function obtenerVideoId(url) {
+            var regExp = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+            var match = url.match(regExp);
+            return (match && match[1]) ? match[1] : null;
+        }
+    </script>
 
 </body>
+
 </html>
