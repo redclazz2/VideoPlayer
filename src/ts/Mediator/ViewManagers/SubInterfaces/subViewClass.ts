@@ -2,6 +2,7 @@ import ViewManager from "../viewManager";
 import SubView from "./subViewInterface";
 
 export default class SubViewClass implements SubView{
+    Identifier: string = "N/A";
     MainView:ViewManager;
 
     constructor(MainView:ViewManager){

@@ -4,10 +4,13 @@ import Mediator from "./Interfaces/gameMediatorInterface";
 import Cookies from "js-cookie";
 import ViewManager from "./ViewManagers/viewManager";
 import SubViewEnterUsername from "./ViewManagers/SubInterfaces/SubViewUsername";
+import SubViewWaitingPlayers from "./ViewManagers/SubInterfaces/subViewWaitingPlayers";
 
 export default class GameMediator implements Mediator{
-    private gameClient:GameClient;
-    private viewManager:ViewManager;
+    gameClient:GameClient;
+    viewManager:ViewManager;
+
+    private isHost:boolean;
 
     init = () => {
         this.gameClient = new GameClient(this);
@@ -16,8 +19,10 @@ export default class GameMediator implements Mediator{
         var JoinData = Cookies.get("Join");
         
         if(JoinData == undefined){
+            this.isHost = true;
             this.gameClient.colyseusCreateRoom();
         }else{
+            this.isHost = false;
             this.gameClient.colyseusJoinRoom(JoinData);
         }
     }
@@ -25,6 +30,10 @@ export default class GameMediator implements Mediator{
     notify(sender: Component, event: string, args: any): void {
         if(sender == this.gameClient){
             this.handleGameClientEvent(event,args);
+        }
+
+        if(sender == this.viewManager){
+            this.handleViewEvent(event,args);
         }
     }
 
@@ -34,6 +43,38 @@ export default class GameMediator implements Mediator{
                 this.viewManager.InitializeRoomCodeNavbar(this.gameClient.colyseusRoom.id);
                 this.viewManager.ChangeCurrentSubView(new SubViewEnterUsername(this.viewManager));
             break;
+
+            case "ClientJoinedRoom":
+                this.UpdatePlayerListOnView();
+                break;
+
+            case "ClientLeftRoom":
+                this.UpdatePlayerListOnView();
+                break;
+            
+            case "ClientDataUpdate":
+                this.UpdatePlayerListOnView();
+                break;
+        }
+    }
+
+    handleViewEvent(event:string,args:any){
+        switch(event){
+            case "UsernameRegistration":
+                this.gameClient.sendLocalUsername(args);
+                this.viewManager.ChangeCurrentSubView(new SubViewWaitingPlayers(this.viewManager));
+            break;
+
+            case "LoadedWaitingRoom":
+                this.UpdatePlayerListOnView();
+            break;
+        }
+    }
+
+    UpdatePlayerListOnView(){
+        if(this.viewManager.currentSubview.Identifier == "WaitingLobby"){
+            var view = this.viewManager.currentSubview as SubViewWaitingPlayers;
+            view.UpdatePlayerList(this.gameClient.colyseusRoom.state.players);
         }
     }
 }
