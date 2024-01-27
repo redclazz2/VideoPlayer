@@ -11,7 +11,7 @@ export default class ViewManager extends Component{
         });
     }
 
-    ChangeCurrentSubView = (newSubView:SubView) => {
+    ChangeCurrentSubView = async (newSubView:SubView) => {
         $("#GameCodeInsert").html('');
         this.currentSubview = newSubView;
         this.currentSubview.Init();

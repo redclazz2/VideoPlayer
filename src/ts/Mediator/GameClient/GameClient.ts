@@ -35,6 +35,11 @@ export class GameClient extends Component{
     handleGlobalJoinAction = ():void =>{
         this.dialog.notify(this,"ColyseusJoinRoom",{});
 
+        this.colyseusRoom.onMessage(ColyseusMessagesTypes.SendPlayerUsernameRegistration,(message:any) => {
+            this.playerMap.set(message.player,message.data);
+            this.dialog.notify(this,"ClientDataUpdate",{}); 
+        });
+
          //#region Define Game Status Sync based on Colyseus
         this.colyseusRoom.state.players.onAdd((client:any, key: string) => {
             this.playerMap.set(key, client);
@@ -45,6 +50,11 @@ export class GameClient extends Component{
             this.playerMap.delete(key);
             this.dialog.notify(this,"ClientLeftRoom",{}); 
         });
+
+        this.colyseusRoom.state.players.onChange((value:any,key:string) =>{
+            this.playerMap.set(key,value);
+            this.dialog.notify(this,"ClientDataUpdate",{}); 
+        });
         //#endregion
     }
 
@@ -52,5 +62,7 @@ export class GameClient extends Component{
         this.colyseusRoom.send(ColyseusMessagesTypes.SendPlayerUsernameRegistration,{
             RegisteredUsername : username
         });
+        this.playerMap.set(this.sessionId,username);
+        this.dialog.notify(this,"ClientDataUpdate",{}); 
     }
 }
