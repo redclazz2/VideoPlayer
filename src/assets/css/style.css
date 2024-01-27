@@ -1,23 +1,19 @@
-body{
+body {
     background-color: rgb(99, 135, 214);
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
-.logo{
+.logo {
     width: 70%;
 }
 
-.logo1{
-    width: 35%;
-}
-
-.main-announcement{
+.main-announcement {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.btn{
+.btn {
     width: auto;
     margin: 1%;
     background-color: none;
@@ -25,41 +21,38 @@ body{
     font-weight: bold;
     background: none;
     border: 0;
-
 }
 
-.btn:hover{
+.btn:hover {
     opacity: 0.8;
     cursor: pointer;
-
 }
 
-
-#HostButton{
+#HostButton {
     background-image: url("../imgs/hostbtn.webp");
     background-size: cover;
 }
 
-#JoinButton{
+#JoinButton {
     background-image: url("../imgs/joinbtn.webp");
     background-size: cover;
 }
 
-h1{
+h1 {
     color: white;
     font-size: 2.5rem;
     font-weight: bold;
     margin: 0;
 }
 
-#RoomCode{
+#RoomCode {
     border: 3px solid rgb(0, 0, 0);
     margin: 1%;
     font-size: 1.5rem;
     padding: 0.5%;
 }
 
-#GoButton{
+#GoButton {
     background-image: url("../imgs/joinbtn.webp");
     background-size: cover;
     padding: 2% 5%;
