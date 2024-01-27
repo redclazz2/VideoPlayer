@@ -56,6 +56,10 @@ export default class GameMediator implements Mediator{
             case "ClientDataUpdate":
                 this.UpdatePlayerListOnView();
                 break;
+
+            case "LobbyForceStart":
+                this.viewManager.ChangeCurrentSubView(new SubViewESubmitVideo(this.viewManager));
+                break;
         }
     }
 
@@ -72,6 +76,11 @@ export default class GameMediator implements Mediator{
 
             case "LobbyForceStart":
                 this.viewManager.ChangeCurrentSubView(new SubViewESubmitVideo(this.viewManager));
+                this.gameClient.sendStartSignal();
+            break;
+
+            case "":
+                
             break;
         }
     }
