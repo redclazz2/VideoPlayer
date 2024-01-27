@@ -5,6 +5,7 @@ import Cookies from "js-cookie";
 import ViewManager from "./ViewManagers/viewManager";
 import SubViewEnterUsername from "./ViewManagers/SubViews/SubViewUsername";
 import SubViewWaitingPlayers from "./ViewManagers/SubViews/subViewWaitingPlayers";
+import SubViewESubmitVideo from "./ViewManagers/SubViews/subViewSubmitVideo";
 
 export default class GameMediator implements Mediator{
     gameClient:GameClient;
@@ -67,6 +68,10 @@ export default class GameMediator implements Mediator{
 
             case "LoadedWaitingRoom":
                 this.UpdatePlayerListOnView();
+            break;
+
+            case "LobbyForceStart":
+                this.viewManager.ChangeCurrentSubView(new SubViewESubmitVideo(this.viewManager));
             break;
         }
     }
