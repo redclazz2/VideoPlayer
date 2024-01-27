@@ -2,6 +2,10 @@ import Component from "../Interfaces/gameComponentInterface";
 import {Client,Room} from "colyseus.js";
 import Mediator from "../Interfaces/gameMediatorInterface";
 
+enum ColyseusMessagesTypes{
+    SendPlayerUsernameRegistration,
+}
+
 export class GameClient extends Component{
     colyseusClient:Client = new Client("http://localhost:2567");
     colyseusRoom:Room;
@@ -13,7 +17,7 @@ export class GameClient extends Component{
     }
 
     colyseusCreateRoom = async(): Promise<void> => {
-        this.colyseusClient.joinOrCreate("PartyRoom").then((room) => {
+        this.colyseusClient.create("PartyRoom").then((room) => {
             this.colyseusRoom = room;
             this.sessionId = room.sessionId;
             this.handleGlobalJoinAction();
@@ -42,5 +46,11 @@ export class GameClient extends Component{
             this.dialog.notify(this,"ClientLeftRoom",{}); 
         });
         //#endregion
+    }
+
+    sendLocalUsername = (username:string) =>{
+        this.colyseusRoom.send(ColyseusMessagesTypes.SendPlayerUsernameRegistration,{
+            RegisteredUsername : username
+        });
     }
 }
