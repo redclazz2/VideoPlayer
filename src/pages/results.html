@@ -1,31 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="height: 100%; display: flex; flex-direction: column;">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../assets/css/bootstrap.scss">
+    <script src="https://www.youtube.com/iframe_api"></script>
 </head>
-<body>
+
+<body style="height: 100%; display: flex; flex-direction: column;">
     <!--Header principal-->
     <div class="container-fluid text-center">
-        <img class="image-fluid" src="../assets/" width="150px" height="150px">
+        <img class="image-fluid" src="../assets/imgs/logo.webp" width="200px" height="200px"
+            style="object-fit: contain;">
     </div>
     <div class="container">
         <div class="row">
-          <div class="col-md-3 col-12 h-75">
-            <!-- En dispositivos medianos y superiores, la columna ocupará el 25% -->
-            <div class="bg-primary text-white p-3">
-              Contenido 25%
+            <div class="col-md-3 col-12">
+                <!-- En dispositivos medianos y superiores, la columna ocupará el 25% -->
+                <div class="bg-primary text-white p-3">
+                    Contenido 25%
+                </div>
             </div>
-          </div>
-          <div class="col-md-9 col-12">
-            <!-- En dispositivos medianos y superiores, la columna ocupará el 65% -->
-            <div class="bg-secondary text-white p-3">
-              Contenido 65%
+            <div class="col-md-9 col-12">
+                <!-- En dispositivos medianos y superiores, la columna ocupará el 65% -->
+                <div class="bg-secondary text-white p-3 text-center">
+                    <div id="reproductor"></div>
+
+                </div>
             </div>
-          </div>
         </div>
-      </div>
+    </div>
 </body>
+<script>
+        var player;
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('reproductor', {
+                height: '315',
+                width: '560',
+                videoId: '',  // Inicialmente sin video
+                playerVars: {
+                    'autoplay': 1,
+                    'controls': 0,  // Oculta los controles
+                    'disablekb': 1, // Desactiva el teclado
+                    'fs': 0,        // Oculta el botón de pantalla completa
+                    'modestbranding': 1 // Oculta el logo de YouTube
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange':(event)=>{
+                        if (event.data == YT.PlayerState.PAUSED) {
+                            player.playVideo();
+                        }
+                    }
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            // El reproductor está listo
+        }
+
+        function cambiarVideo() {
+            var urlInput = document.getElementById('urlInput').value;
+            var videoId = obtenerVideoId(urlInput);
+
+            if (videoId) {
+                player.loadVideoById(videoId);
+            } else {
+                alert('La URL de YouTube no es válida');
+            }
+        }
+
+        function obtenerVideoId(url) {
+            var regExp = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+            var match = url.match(regExp);
+            return (match && match[1]) ? match[1] : null;
+        }
+    </script>
 </html>
