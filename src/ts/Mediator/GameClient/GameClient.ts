@@ -32,12 +32,12 @@ export class GameClient extends Component{
         this.dialog.notify(this,"ColyseusJoinRoom",{});
 
          //#region Define Game Status Sync based on Colyseus
-        this.colyseusRoom.state.clients.onAdd((client:any, key: string) => {
+        this.colyseusRoom.state.players.onAdd((client:any, key: string) => {
             this.playerMap.set(key, client);
             this.dialog.notify(this,"ClientJoinedRoom",{});
         });
         
-        this.colyseusRoom.state.clients.onRemove((_client:any, key: string) => {
+        this.colyseusRoom.state.players.onRemove((_client:any, key: string) => {
             this.playerMap.delete(key);
             this.dialog.notify(this,"ClientLeftRoom",{}); 
         });

@@ -3,6 +3,7 @@ import Component from "./Interfaces/gameComponentInterface";
 import Mediator from "./Interfaces/gameMediatorInterface";
 import Cookies from "js-cookie";
 import ViewManager from "./ViewManagers/viewManager";
+import SubViewEnterUsername from "./ViewManagers/SubInterfaces/SubViewUsername";
 
 export default class GameMediator implements Mediator{
     private gameClient:GameClient;
@@ -31,6 +32,7 @@ export default class GameMediator implements Mediator{
         switch(event){
             case "ColyseusJoinRoom":
                 this.viewManager.InitializeRoomCodeNavbar(this.gameClient.colyseusRoom.id);
+                this.viewManager.ChangeCurrentSubView(new SubViewEnterUsername(this.viewManager));
             break;
         }
     }
