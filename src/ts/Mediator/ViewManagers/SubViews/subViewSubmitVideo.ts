@@ -1,7 +1,7 @@
 import SubViewClass from "./subViewClass";
 import $ from "jquery";
 
-export default class SubViewEnterUsername extends SubViewClass{   
+export default class SubViewESubmitVideo extends SubViewClass{   
     Init(): void {
         $("#GameCodeInsert").load("../../../layouts/videoSubmit.html",{},this.AddControls);
     }
