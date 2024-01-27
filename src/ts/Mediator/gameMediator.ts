@@ -2,21 +2,36 @@ import { GameClient } from "./GameClient/GameClient";
 import Component from "./Interfaces/gameComponentInterface";
 import Mediator from "./Interfaces/gameMediatorInterface";
 import Cookies from "js-cookie";
+import ViewManager from "./ViewManagers/viewManager";
 
 export default class GameMediator implements Mediator{
     private gameClient:GameClient;
+    private viewManager:ViewManager;
 
     init = () => {
         this.gameClient = new GameClient(this);
+        this.viewManager = new ViewManager(this);
 
-        if(Cookies.get("Join") == undefined){
+        var JoinData = Cookies.get("Join");
+        
+        if(JoinData == undefined){
             this.gameClient.colyseusCreateRoom();
         }else{
-            //Joins a room
+            this.gameClient.colyseusJoinRoom(JoinData);
         }
     }
 
     notify(sender: Component, event: string, args: any): void {
-        throw new Error("Method not implemented.");
+        if(sender == this.gameClient){
+            this.handleGameClientEvent(event,args);
+        }
+    }
+
+    handleGameClientEvent(event:string,args:any):void{
+        switch(event){
+            case "ColyseusJoinRoom":
+                this.viewManager.InitializeRoomCodeNavbar(this.gameClient.colyseusRoom.id);
+            break;
+        }
     }
 }

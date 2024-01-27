@@ -13,7 +13,7 @@ export class GameClient extends Component{
     }
 
     colyseusCreateRoom = async(): Promise<void> => {
-        this.colyseusClient.joinOrCreate("global_room").then((room) => {
+        this.colyseusClient.joinOrCreate("PartyRoom").then((room) => {
             this.colyseusRoom = room;
             this.sessionId = room.sessionId;
             this.handleGlobalJoinAction();
@@ -21,10 +21,26 @@ export class GameClient extends Component{
     }
 
     colyseusJoinRoom = async(room_id:string): Promise<void> => {
-
+        this.colyseusClient.joinById(room_id).then((room: Room) => {
+            this.colyseusRoom = room;
+            this.sessionId = room.sessionId;
+            this.handleGlobalJoinAction();
+        });
     }
 
     handleGlobalJoinAction = ():void =>{
         this.dialog.notify(this,"ColyseusJoinRoom",{});
+
+         //#region Define Game Status Sync based on Colyseus
+        this.colyseusRoom.state.clients.onAdd((client:any, key: string) => {
+            this.playerMap.set(key, client);
+            this.dialog.notify(this,"ClientJoinedRoom",{});
+        });
+        
+        this.colyseusRoom.state.clients.onRemove((_client:any, key: string) => {
+            this.playerMap.delete(key);
+            this.dialog.notify(this,"ClientLeftRoom",{}); 
+        });
+        //#endregion
     }
 }
