@@ -48,6 +48,7 @@ export class GameClient extends Component{
 
         this.colyseusRoom.onMessage(ColyseusMessagesTypes.SendVideoRegistration,(message:any)=>{
             console.log(message)
+            this.dialog.notify(this,"VideoDataUpdate",message);
         });
 
          //#region Define Game Status Sync based on Colyseus

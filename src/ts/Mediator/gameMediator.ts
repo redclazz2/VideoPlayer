@@ -7,6 +7,7 @@ import SubViewEnterUsername from "./ViewManagers/SubViews/SubViewUsername";
 import SubViewWaitingPlayers from "./ViewManagers/SubViews/subViewWaitingPlayers";
 import SubViewESubmitVideo from "./ViewManagers/SubViews/subViewSubmitVideo";
 import SubViewWaitingSubmit from "./ViewManagers/SubViews/subViewWaitingSubmit";
+import SubViewVideoPlayer from "./ViewManagers/SubViews/subViewVideoPlayer";
 
 export default class GameMediator implements Mediator{
     gameClient:GameClient;
@@ -60,6 +61,11 @@ export default class GameMediator implements Mediator{
 
             case "LobbyForceStart":
                 this.viewManager.ChangeCurrentSubView(new SubViewESubmitVideo(this.viewManager));
+                break;
+
+            case "VideoDataUpdate":
+                this.viewManager.ChangeCurrentSubView(new SubViewVideoPlayer(this.viewManager));
+                
                 break;
         }
     }
