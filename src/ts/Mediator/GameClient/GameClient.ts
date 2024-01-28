@@ -10,7 +10,7 @@ enum ColyseusMessagesTypes{
 }
 
 export class GameClient extends Component{
-    colyseusClient:Client = new Client("http://10.32.34.213:2567");
+    colyseusClient:Client = new Client("http://34.121.82.169/");
     colyseusRoom:Room;
     sessionId:string;
     private playerMap: Map<string, any> = new Map<string, any>();

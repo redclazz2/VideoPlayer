@@ -1,17 +1,30 @@
-<script src="https://www.youtube.com/iframe_api"></script>
-    <div class="container"> 
-        <!-- En dispositivos medianos y superiores, la columna ocupará el 65% -->
-        <div class="bg-secondary text-white p-3 text-center" style="height: 55vh; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-            <div class="embed-responsive embed-responsive-16by9" style="width: 75%; height: 100%;">
-                <div id="reproductor" class="embed-responsive-item"></div>
+<!--script src="https://www.youtube.com/iframe_api"></script>-->
+
+<div class="container"> 
+    <!-- En dispositivos medianos y superiores, la columna ocupará el 65% -->
+    <div class="bg-secondary text-white p-3 text-center" style="height: 55vh; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+        <div class="embed-responsive embed-responsive-16by9" style="width: 75%; height: 100%;">
+            <div id="reproductor" class="embed-responsive-item">
+                <video
+                    id="videoElement"
+                    class="video-js vjs-default-skin"
+                    controls = "true"
+                    autoplay = "true"
+                    width="640" height="264"
+                    data-setup='{ "techOrder": ["youtube"], "sources": [{ "type": "video/youtube", "src": "https://www.youtube.com/watch?v=xjS6SftYQaQ"}] }'
+                >
+                </video>
             </div>
         </div>
-
-        <!-- En dispositivos medianos y superiores, la columna derecha ocupará el 35% -->
-        <div class="col-md-4 bg-primary text-white p-3" style="height: 55vh;">
-            Contenido 35%
-        </div>
     </div>
+
+    <!-- En dispositivos medianos y superiores, la columna derecha ocupará el 35% -->
+    <div class="col-md-4 bg-primary text-white p-3" style="height: 55vh;">
+        Contenido 35%
+    </div>
+</div>
+
+<!--
     <script>    
         let player;
     
@@ -59,3 +72,4 @@
             return (match && match[1]) ? match[1] : null;
         }
     </script>
+-->
