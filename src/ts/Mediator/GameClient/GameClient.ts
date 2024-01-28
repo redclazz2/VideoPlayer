@@ -5,6 +5,7 @@ import Mediator from "../Interfaces/gameMediatorInterface";
 enum ColyseusMessagesTypes{
     SendPlayerUsernameRegistration,
     SendLobbyStartForce,
+    SendVideoRegistration
 }
 
 export class GameClient extends Component{
@@ -45,6 +46,10 @@ export class GameClient extends Component{
             this.dialog.notify(this,"LobbyForceStart",{});
         });
 
+        this.colyseusRoom.onMessage(ColyseusMessagesTypes.SendVideoRegistration,(message:any)=>{
+            console.log(message)
+        });
+
          //#region Define Game Status Sync based on Colyseus
         this.colyseusRoom.state.players.onAdd((client:any, key: string) => {
             this.playerMap.set(key, client);
@@ -71,5 +76,9 @@ export class GameClient extends Component{
 
     sendStartSignal = () => {
         this.colyseusRoom.send(ColyseusMessagesTypes.SendLobbyStartForce);
+    }
+
+    sendVideoRegistration = (args:any) =>{
+        this.colyseusRoom.send(ColyseusMessagesTypes.SendVideoRegistration,args);
     }
 }
