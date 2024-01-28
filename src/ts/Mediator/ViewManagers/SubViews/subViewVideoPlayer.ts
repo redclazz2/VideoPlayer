@@ -25,7 +25,7 @@ export default class SubViewVideoPlayer extends SubViewClass{
 
     playRound():void{
         for(var v in this.videoList){
-
+            
         }
     }
 }
