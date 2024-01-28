@@ -1,6 +1,7 @@
 import Component from "../Interfaces/gameComponentInterface";
 import {Client,Room} from "colyseus.js";
 import Mediator from "../Interfaces/gameMediatorInterface";
+import Video from "../../../classes/video";
 
 enum ColyseusMessagesTypes{
     SendPlayerUsernameRegistration,
@@ -47,8 +48,8 @@ export class GameClient extends Component{
         });
 
         this.colyseusRoom.onMessage(ColyseusMessagesTypes.SendVideoRegistration,(message:any)=>{
-            console.log(message)
-            this.dialog.notify(this,"VideoDataUpdate",message);
+            var data:Video[] = message.map((obj: { SenderId: string; VideoUrl: string; VideoDesc: string; })=>Video.createFromObject(obj));
+            this.dialog.notify(this,"VideoDataUpdate",data);
         });
 
          //#region Define Game Status Sync based on Colyseus
