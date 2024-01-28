@@ -6,12 +6,13 @@ import ViewManager from "./ViewManagers/viewManager";
 import SubViewEnterUsername from "./ViewManagers/SubViews/SubViewUsername";
 import SubViewWaitingPlayers from "./ViewManagers/SubViews/subViewWaitingPlayers";
 import SubViewESubmitVideo from "./ViewManagers/SubViews/subViewSubmitVideo";
+import SubViewWaitingSubmit from "./ViewManagers/SubViews/subViewWaitingSubmit";
 
 export default class GameMediator implements Mediator{
     gameClient:GameClient;
     viewManager:ViewManager;
 
-    private isHost:boolean;
+    //private isHost:boolean;
 
     init = () => {
         this.gameClient = new GameClient(this);
@@ -20,10 +21,10 @@ export default class GameMediator implements Mediator{
         var JoinData = Cookies.get("Join");
         
         if(JoinData == undefined){
-            this.isHost = true;
+            //this.isHost = true;
             this.gameClient.colyseusCreateRoom();
         }else{
-            this.isHost = false;
+            //this.isHost = false;
             this.gameClient.colyseusJoinRoom(JoinData);
         }
     }
@@ -38,7 +39,7 @@ export default class GameMediator implements Mediator{
         }
     }
 
-    handleGameClientEvent(event:string,args:any):void{
+    handleGameClientEvent(event:string,_args:any):void{
         switch(event){
             case "ColyseusJoinRoom":
                 this.viewManager.InitializeRoomCodeNavbar(this.gameClient.colyseusRoom.id);
@@ -79,8 +80,9 @@ export default class GameMediator implements Mediator{
                 this.gameClient.sendStartSignal();
             break;
 
-            case "":
-                
+            case "VideoRegistration":
+                this.viewManager.ChangeCurrentSubView(new SubViewWaitingSubmit(this.viewManager));
+                this.gameClient.sendVideoRegistration(args);
             break;
         }
     }

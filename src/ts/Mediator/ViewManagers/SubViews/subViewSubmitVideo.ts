@@ -10,9 +10,13 @@ export default class SubViewESubmitVideo extends SubViewClass{
         var ViewMe = this.MainView;
         var Mediator = this.MainView.dialog;
         $("#VideoSubmit").on("click",function(){
+            var videoUrl = $("#videoUrl").val();
+            var videoDesc = $("#videoCaption").val();
+            
+            if(videoUrl != "" && videoDesc != "")
             Mediator.notify(ViewMe,"VideoRegistration",{
-                VideoUrl: $().val(),
-                VideoDesc: $().val()
+                VideoUrl: videoUrl,
+                VideoDesc: videoDesc
             })
         });
     }
