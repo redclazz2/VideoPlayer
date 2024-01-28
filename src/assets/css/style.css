@@ -1,10 +1,23 @@
 body {
     background-color: rgb(99, 135, 214);
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    margin: 0; 
+    overflow: hidden; 
+}
+
+.container {
+    height: 100vh; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .logo {
-    width: 70%;
+    width: 50%;
+}
+
+.logo1 {
+    width: 50%;
 }
 
 .main-announcement {
@@ -54,6 +67,10 @@ h1 {
 
 #GoButton {
     background-image: url("../imgs/joinbtn.webp");
-    background-size: cover;
-    padding: 2% 5%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 4% 10%;
+    font-size: 1.5rem;
+    height: auto;
 }

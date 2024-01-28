@@ -1,39 +1,28 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Comedy Club</title>
-    <!-- Utilizando el archivo CSS compilado de Bootstrap -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/css/bootstrap.scss">
     <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 
-<body class="bg-primary">
+<body>
     <header>
         <div id="nav-insert"></div>
     </header>
 
-    <main class="container-fluid d-flex justify-content-center align-items-center vh-100">
-        <!-- Agregando la clase 'vh-100' para ocupar el 100% de la altura de la ventana -->
-        <div class="row main-announcement">
-            <img src="./assets/imgs/logo.webp" alt="logo" srcset="" class="logo col-12 col-md-6">
-            
-            <a type="button" class="btn btn-secondary custom-button col-12 col-md-6" id="HostButton">
-                <h5></h5>
-            </a>
-            <a type="button" class="btn btn-primary custom-button col-12 col-md-6" id="JoinButton">
-                <h5></h5>
-            </a>
+    <main class="container">
+        <div class="row main-announcement">./assets/imgs/logo.webp"
+            <img src=" alt="logo" srcset="" class="logo">
+
+            <a type="button" class="btn btn-secondary custom-button" id="HostButton"><h5></h5></a>
+            <a type="button" class="btn btn-primary custom-button" id="JoinButton"><h5></h5></a>
         </div>
     </main>
 
-    <!-- Incluyendo el archivo JavaScript de Bootstrap (popper.js y Bootstrap JS) -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="./ts/views/indexView.ts" type="module"></script>
 </body>
-
 </html>
