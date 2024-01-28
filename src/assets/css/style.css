@@ -1,8 +1,9 @@
 body {
-    background-color: rgb(99, 135, 214);
+    background-image: url("../imgs/fondo.webp");
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     margin: 0; 
-    overflow: hidden; 
+    overflow: hidden;
+    background-size: cover;
 }
 
 .container {
