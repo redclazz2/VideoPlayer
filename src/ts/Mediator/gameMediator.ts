@@ -65,7 +65,9 @@ export default class GameMediator implements Mediator{
 
             case "VideoDataUpdate":
                 this.viewManager.ChangeCurrentSubView(new SubViewVideoPlayer(this.viewManager));
-                
+                var tempSubpage = this.viewManager.currentSubview as SubViewVideoPlayer;
+                tempSubpage.setPlayerList(this.gameClient.colyseusRoom.state.players);
+
                 break;
         }
     }
